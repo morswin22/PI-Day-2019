@@ -1,12 +1,13 @@
 const BlockDensity = 1;
 
 class Block {
-    constructor(x, w, v, m) {
+    constructor(x, w, v, m, xconstraint) {
         this.x = x; // x pos
         this.y = height - w; // y pos
         this.w = w; // width
         this.v = v; // velocity
         this.m = m; // mass
+        this.xConstraint = xconstraint;
     }
 
     hitWall() {
@@ -31,6 +32,10 @@ class Block {
     }
 
     render() {
-        image(blockImg, this.x, this.y, this.w, this.w);
+        const x = constrain(this.x, this.xConstraint, width);
+        image(blockImg, x, this.y, this.w, this.w);
+
+        textAlign(CENTER, CENTER);
+        text(`${this.m} kg`, this.x+this.w/2, this.y-20);
     }
 }
